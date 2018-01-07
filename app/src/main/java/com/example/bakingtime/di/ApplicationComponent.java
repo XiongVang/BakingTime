@@ -1,4 +1,4 @@
-package com.teamtreehouse.popularmovies.di;
+package com.example.bakingtime.di;
 
 import android.app.Application;
 

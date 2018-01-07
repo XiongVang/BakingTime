@@ -1,6 +1,6 @@
-package com.example.bakingtime.repository.networking;
+package com.example.bakingtime.repository.recipes;
 
-import com.example.bakingtime.repository.networking.model.Recipe;
+import com.example.bakingtime.repository.recipes.model.Recipe;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
 
-package com.example.bakingtime.repository.networking.model;
+package com.example.bakingtime.repository.recipes.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

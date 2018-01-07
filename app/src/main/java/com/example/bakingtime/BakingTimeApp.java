@@ -1,36 +1,36 @@
-package com.teamtreehouse.popularmovies;
+package com.example.bakingtime;
 
 import android.app.Application;
 
-import com.teamtreehouse.popularmovies.di.ApiModule;
-import com.teamtreehouse.popularmovies.di.ApplicationModule;
-import com.teamtreehouse.popularmovies.di.DaggerDataComponent;
-import com.teamtreehouse.popularmovies.di.DataComponent;
-import com.teamtreehouse.popularmovies.di.DataModelModule;
+import com.example.bakingtime.di.ApplicationModule;
+import com.example.bakingtime.di.DaggerViewModelComponent;
+import com.example.bakingtime.di.NetworkingModule;
+import com.example.bakingtime.di.RepositoryModule;
+import com.example.bakingtime.di.ViewModelComponent;
+import com.example.bakingtime.di.ViewModelModule;
 
-public class PopularMoviesApp extends Application {
 
+public class BakingTimeApp extends Application {
 
-    // Enter api key here to run app
-    private final String API_KEY = "63ba90194ff5cc0e2f703ed4f25413f1";
-
-    DataComponent mDataComponent;
-
+    ViewModelComponent mViewModelComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mDataComponent = DaggerDataComponent.builder()
-                .apiModule(new ApiModule(API_KEY))
-                .dataModelModule(new DataModelModule())
+        mViewModelComponent = DaggerViewModelComponent.builder()
+                .networkingModule(new NetworkingModule())
+                .repositoryModule(new RepositoryModule())
+                .viewModelModule(new ViewModelModule())
                 .applicationModule(new ApplicationModule(this))
                 .build();
 
+
+
     }
 
-    public DataComponent getDataComponent() {
-        return mDataComponent;
+    public ViewModelComponent getViewModelComponent() {
+        return mViewModelComponent;
     }
 
 }

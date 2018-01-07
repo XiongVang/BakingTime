@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.bakingtime.R;
+import com.example.bakingtime.viewmodel.uimodel.RecipeUiModel;
+import com.jakewharton.rxrelay2.PublishRelay;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -18,32 +20,31 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeHo
 
     private static final String TAG = "RecipesAdapter";
 
+    private PublishRelay<String> mRecipeClickNotifier = PublishRelay.create();
+
     private Context mContext;
 
-    private List<String> mRecipesList;
+    private List<RecipeUiModel> mRecipesList;
 
-    public RecipesAdapter(){
-        mRecipesList = getMockRecipes();
+    public RecipesAdapter() {
+        mRecipesList = Collections.EMPTY_LIST;
     }
 
     @Override
     public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         mContext = parent.getContext();
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recipe_card, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.single_text_card, parent, false);
         return new RecipeHolder(view);
     }
 
-    private List<String> getMockRecipes() {
-        String[] recipes = {"Nutella Pie", "Brownies", "Yellow Cake", "Cheesecake"};
-
-        return Arrays.asList(recipes);
-    }
 
     @Override
     public void onBindViewHolder(RecipeHolder holder, int position) {
 
-        holder.setRecipeText(mRecipesList.get(position));
+        holder.setRecipeText(mRecipesList.get(position).getName());
+        holder.itemView.setOnClickListener(v -> mRecipeClickNotifier.accept(mRecipesList.get(position).getId()));
+
     }
 
     @Override
@@ -60,7 +61,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeHo
         public RecipeHolder(View itemView) {
             super(itemView);
 
-            mRecipeText = (TextView) itemView.findViewById(R.id.recipe_text_view);
+            mRecipeText = (TextView) itemView.findViewById(R.id.single_text);
         }
 
         public void setRecipeText(String recipe) {
@@ -68,4 +69,15 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeHo
             mRecipeText.setText(recipe);
         }
     }
+
+    public void updateRecipesList(List<RecipeUiModel> updatedRecipes) {
+        mRecipesList = updatedRecipes;
+        notifyDataSetChanged();
+    }
+
+    public PublishRelay<String> getRecipeClickNotifier(){
+        return mRecipeClickNotifier;
+    }
+
+
 }

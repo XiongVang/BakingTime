@@ -1,4 +1,4 @@
-package com.teamtreehouse.popularmovies.di;
+package com.example.bakingtime.di;
 
 import android.app.Application;
 
@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+@Singleton
 @Module
 public class ApplicationModule {
     Application application;
@@ -16,7 +17,6 @@ public class ApplicationModule {
     }
 
     @Provides
-    @Singleton
     Application providesApplication() {
         return application;
     }
