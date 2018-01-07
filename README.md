@@ -6,3 +6,4 @@ Baking app project for Udacity Android course.
  * Butterknife - view binding
  * Dagger - dependecy injection
  * RxJava - event listening and api calls
+ * Retrofit - api calls
